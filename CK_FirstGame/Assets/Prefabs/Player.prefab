@@ -127,9 +127,9 @@ GameObject:
   - component: {fileID: 8078328944071709018}
   - component: {fileID: 4631998917270277546}
   - component: {fileID: 6934822201922654480}
-  - component: {fileID: 7425719220518796255}
   - component: {fileID: 4604508790470150564}
   - component: {fileID: 7566212806932645449}
+  - component: {fileID: 2814789275838633936}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -152,6 +152,7 @@ Transform:
   m_Children:
   - {fileID: 5159212826993507087}
   - {fileID: 1324624542780549717}
+  - {fileID: 2657323661516242425}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5086395039215158225
@@ -245,20 +246,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7425719220518796255
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6601340767697816558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8d901cf00c41b7469f38176c8e5081c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 5
-  _maxRadiansDelta: 10
 --- !u!114 &4604508790470150564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,3 +270,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ba11d0781fa9f248a2f696fcf988dbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2814789275838633936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6601340767697816558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e51a890a929c6db498f5ad11738056ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 1
+  _maxRadiansDelta: 10
+  _movementBoost: 2
+--- !u!1 &8460250587399431335
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2657323661516242425}
+  m_Layer: 3
+  m_Name: Boost
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2657323661516242425
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8460250587399431335}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4139475559775687947}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -30,6 +30,9 @@ namespace CK_FirstGame.Shooting
 
         public void SetWeapon(Weapon weaponPrefab, Transform hand)
         {
+            if(_weapon != null) 
+                Destroy(_weapon.gameObject);
+
             _weapon = Instantiate(weaponPrefab, hand);
             _weapon.transform.localPosition = Vector3.zero;
             _weapon.transform.localRotation = Quaternion.identity;
@@ -41,7 +44,7 @@ namespace CK_FirstGame.Shooting
 
             var position = _weapon.transform.position;
             var radius = _weapon.ShootRadius;
-            var mask = LayerUtils.EnemyMask;
+            var mask = LayerUtils.TargetMask;
 
             var size = Physics.OverlapSphereNonAlloc(position, radius, _colliders, mask);
             if (size > 0)

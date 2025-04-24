@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace CK_FirstGame.Movement
@@ -7,16 +8,14 @@ namespace CK_FirstGame.Movement
     {
         private static readonly float SqrEpsilon = Mathf.Epsilon * Mathf.Epsilon;
         [SerializeField]
-        private float _speed = 1f;
+        protected float _speed = 1f;
         [SerializeField]
-        private float _maxRadiansDelta = 10f;
-        [SerializeField]
-        private float _movementBoost = 2f;
+        protected float _maxRadiansDelta = 10f;
 
         public Vector3 MovementDirection{ get; set; }
         public Vector3 LookDirection{ get; set; }
 
-        private CharacterController _characterController;
+        protected CharacterController _characterController;
 
         protected void Awake()
         {
@@ -29,17 +28,22 @@ namespace CK_FirstGame.Movement
 
             if(_maxRadiansDelta > 0f && LookDirection != Vector3.zero)
                 Rotate();
+
         }
 
+        protected void Translate(float PlayerSpeed)
+        {
+            float currentSpeed = _speed * PlayerSpeed;
+            var delta = MovementDirection * currentSpeed * Time.deltaTime;
+            _characterController.Move(delta);
+        }
         private void Translate()
         {
             var delta = MovementDirection * _speed * Time.deltaTime;
-            if(Input.GetKey(KeyCode.Space))
-                delta *= _movementBoost;
             _characterController.Move(delta);
         }
 
-        private void Rotate()
+        protected void Rotate()
         {
             var currentLookDirection = transform.rotation * Vector3.forward;
             float sqrMagnitude = (currentLookDirection - LookDirection).sqrMagnitude;
@@ -54,5 +58,6 @@ namespace CK_FirstGame.Movement
                 transform.rotation = newRotation;
             }
         }
+        
     }
 }

@@ -1,11 +1,12 @@
 using CK_FirstGame.Movement;
 using CK_FirstGame.Shooting;
+using CK_FirstGame.PickUp;
 using UnityEngine;
 
 namespace CK_FirstGame
 {
     [RequireComponent(typeof(CharacterMovementController), typeof(ShootingController))]
-    public class BaseCharacter : MonoBehaviour
+    public abstract class BaseCharacter : MonoBehaviour
     {
         [SerializeField]
         private Weapon _baseWeaponPrefab;
@@ -19,17 +20,19 @@ namespace CK_FirstGame
         private IMovementDirectionSource _movementDirectionSource;
 
         private CharacterMovementController _characterMovementController;
+        private PlayerMovementController _playerMovementController;
         private ShootingController _shootingController;
 
         protected void Awake() {
             _movementDirectionSource = GetComponent<IMovementDirectionSource>();
 
             _characterMovementController = GetComponent<CharacterMovementController>();
+            _playerMovementController = GetComponent<PlayerMovementController>();
             _shootingController = GetComponent<ShootingController>();
         }
         protected void Start() 
         {
-            _shootingController.SetWeapon(_baseWeaponPrefab, _hand);
+            SetWeapon(_baseWeaponPrefab);
         }
 
         protected void Update()
@@ -56,6 +59,27 @@ namespace CK_FirstGame
 
                 Destroy(other.gameObject);
             }
+            else if(LayerUtils.IsWeapon(other.gameObject))
+            {
+                var pickUp = other.gameObject.GetComponent<PickUpWeapon>();
+                pickUp.PickUp(this);
+            
+                Destroy(other.gameObject);
+            }
+            else if (LayerUtils.IsPickUp(other.gameObject))
+            {
+                var boost = other.gameObject.GetComponent<MovementBooster>();
+                _playerMovementController.BoostUp(boost.Booster, boost.BoostTimeSec);
+                boost.PickUp(this);
+
+                Destroy(other.gameObject);
+
+            }
+        }
+
+        public void SetWeapon(Weapon weapon)
+        {
+            _shootingController.SetWeapon(weapon, _hand);
         }
     }
 }
